@@ -1,8 +1,10 @@
 var fs = require("fs");
 var xmldoc = require("xmldoc");
 
-// library objects
-library = new Object();
+// main class that holds all the playlists and stuff
+ITLibrary = function(trackList) {
+	this.trackList = trackList;
+}
 
 // builds the model
 exports.loadTracks = function()
