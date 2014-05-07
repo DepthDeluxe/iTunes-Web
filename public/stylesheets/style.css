@@ -1,0 +1,24 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+table.main {
+	background-color: #eeeeee;
+	width: 100%;
+
+	border-collapse: collapse
+	border: 1px solid black;
+}
+
+td.param {
+	text-align: center;
+}
+
+td.val {
+	text-align: left;
+}

@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	h1= title
+	p This is a test of NodeJS on Colin's machine.  Here are some statistics about my computer
+
+	table(class="main")
+		tr
+			th Parameter:
+			th Value:
+		tr
+			td(class="param") Hostname
+			td(class="val")= hostname
+		tr
+			td(class="param") Platform
+			td(class="val")= platform
+		tr
+			td(class="param") Memory Used
+			td(class="val") #{memused} MB
+		tr
+			td(class="param") Mem Usage
+			td(class="val") #{memusage} %
+
+
+	p You requested the following page: #{request}
