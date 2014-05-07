@@ -17,7 +17,13 @@ router.get('/info', function(req, res) {
 	});
 });
 
+router.get("/Music*", function(req, res) {
+	// open the file we requested
+	musicRoot = "/home/colin/temp/iTunes/iTunes Media";
+	path = musicRoot + req.path;
 
+	res.sendfile(path);
+});
 
 router.get('/', function(req, res) {
 

@@ -55,5 +55,26 @@ function parseTrackInfo(dict) {
 	song.kind = dict.children[13].val;
 	song.size = dict.children[15].val;
 
+	// hunt for the location
+	for (var n = 16; n < dict.children.length; n += 2) {
+		val = dict.children[n].val;
+
+		if (val == "Location") {
+			song.location = new String(dict.children[n + 1].val);
+		}
+	}
+
+	// prune the location to relative directory
+	if (song.location == undefined) {
+		console.log("Could not find location for " + song.name);
+	}
+	else {
+		folderList = song.location.split("/").splice(9);
+		song.location = folderList.join("/");
+
+		// replace HTML space with actual space
+		song.location = song.location.split("%20").join(" ");
+	}
+
 	return song;
 }
