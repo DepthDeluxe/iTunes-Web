@@ -1,5 +1,5 @@
-var express = require('express');
 var os = require('os');
+var express = require('express');
 var router = express.Router();
 
 // require the itunes library
@@ -23,6 +23,10 @@ router.get("/Music*", function(req, res) {
 	path = musicRoot + req.path;
 
 	res.sendfile(path);
+});
+
+router.get("/api*", function(req, res) {
+	res.send(itlib.loadTracks());
 });
 
 router.get('/', function(req, res) {
