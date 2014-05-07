@@ -6,14 +6,20 @@ block content
 
 	table(class="main")
 		tr
+			th
 			th Title:
 			th Artist:
+			th Album:
+			th Genre:
 
 		for track in trackList
-			tr
+			tr(data-url="#{track.location}")
+				td
+					img(src="/images/play.svg" alt="play" width="30" height="30")
 				td= track.name
 				td= track.artist
-				td= track.location
+				td= track.album
+				td= track.genre
 
 	br
 	br
