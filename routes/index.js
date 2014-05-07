@@ -21,17 +21,11 @@ router.get('/info', function(req, res) {
 
 router.get('/', function(req, res) {
 
-	var debugText = itlib.modelInit();
-
-	var song = new Object();
-	song.title = "My Dick";
-	song.artist = "Mikey Avalon";
-
-	var slist = [song];
+	var slist = itlib.loadTracks();
 
 	res.render('itunes', {
 		songList: slist,
-		debugText: debugText
+		debugText: ""
 	});
 });
 

@@ -5,7 +5,7 @@ var xmldoc = require("xmldoc");
 library = new Object();
 
 // builds the model
-exports.modelInit = function()
+exports.loadTracks = function()
 {
 	console.log(__dirname);
 
@@ -26,13 +26,13 @@ exports.modelInit = function()
 		key = tracks.children[n].val;
 		dict = tracks.children[n + 1];
 
-		song = loadSong(dict);
-		trackList.concat([song]);
+		song = parseTrackInfo(dict);
+		trackList = trackList.concat([song]);
 
 		console.log(song.name);
 	}
 
-	return data;
+	return trackList;
 }
 
 // returns a reference to the library
@@ -42,7 +42,7 @@ exports.getLibrary = function()
 }
 
 // returns an Object containing all elements from dictionary
-function loadSong(dict) {
+function parseTrackInfo(dict) {
 	song = new Object();
 
 	// get some information about the song
