@@ -1,11 +1,12 @@
 var express = require('express');
 var os = require('os');
-var xml2js = require('xml2js');
 var router = express.Router();
+
+// require the itunes library
+var itlib = require("../models/itlib");
 
 /* GET home page. */
 router.get('/info', function(req, res) {
-
 	res.render('index', {
 		request: req.path,
 		title: 'NodeJS Demo Application',
@@ -20,8 +21,7 @@ router.get('/info', function(req, res) {
 
 router.get('/', function(req, res) {
 
-	var debugText = "hahahehe";
-
+	var debugText = itlib.modelInit();
 
 	var song = new Object();
 	song.title = "My Dick";
