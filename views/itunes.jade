@@ -1,21 +1,20 @@
 extends layout
 
 block content
-	h1 iTunes Music library
-	p Below is my iTunes music library as parsed from my iTunes XML document
+	h1 iTunes Web
+	p Colin's iTunes Library
 
 	table(class="main")
 		tr
 			th Title:
 			th Artist:
 
-		for song in songList
+		for track in trackList
 			tr
-				td= song.name
-				td= song.artist
-				td= song.location
+				td= track.name
+				td= track.artist
+				td= track.location
 
 	br
 	br
-	br
-	p debugging text... #{debugText}
+	p Copyright &#169; Colin Heinzmann

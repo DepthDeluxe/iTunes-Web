@@ -27,11 +27,10 @@ router.get("/Music*", function(req, res) {
 
 router.get('/', function(req, res) {
 
-	var slist = itlib.loadTracks();
+	var tl = itlib.loadTracks();
 
 	res.render('itunes', {
-		songList: slist,
-		debugText: ""
+		trackList: tl
 	});
 });
 
