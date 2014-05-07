@@ -22,10 +22,14 @@ exports.modelInit = function()
 	// iterate pairs at a time
 	trackList = [];
 	for(var n = 0; n < tracks.children.length; n += 2) {
-		songKey = tracks.children[n].val;
-		songDict = tracks.children[n + 1].val;
+		// get the song key and corresponding dictionary
+		key = tracks.children[n].val;
+		dict = tracks.children[n + 1];
 
-		console.log(songKey);
+		song = loadSong(dict);
+		trackList.concat([song]);
+
+		console.log(song.name);
 	}
 
 	return data;
@@ -35,4 +39,21 @@ exports.modelInit = function()
 exports.getLibrary = function()
 {
 	return library;
+}
+
+// returns an Object containing all elements from dictionary
+function loadSong(dict) {
+	song = new Object();
+
+	// get some information about the song
+	song.trackId = dict.children[1].val;
+	song.name = dict.children[3].val;
+	song.artist = dict.children[5].val;
+	song.albumArtist = dict.children[7].val;
+	song.album = dict.children[9].val;
+	song.genre = dict.children[11].val;
+	song.kind = dict.children[13].val;
+	song.size = dict.children[15].val;
+
+	return song;
 }
