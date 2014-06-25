@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 // require the itunes library
-var itlib = require("../models/itlib");
+var itlib = require("./model/itlib");
 
 /* GET home page. */
 router.get('/info', function(req, res) {

@@ -4,7 +4,7 @@ var xmldoc = require("xmldoc");
 // main class that holds all the playlists and stuff
 ITLibrary = function(trackList) {
 	this.trackList = trackList;
-}
+};
 
 // builds the model
 exports.loadTracks = function()
