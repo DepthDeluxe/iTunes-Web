@@ -1,4 +1,4 @@
-extends layout
+extends header
 
 block content
 	h1 iTunes Web
@@ -7,7 +7,7 @@ block content
 	h2 Current Song
 	div
 		br
-		video(controls autoplay name="media" width="100%" height="10" onended="nextSong();")
+		video(controls autoplay name="media" width="100%" height="0" onended="nextSong();")
 			source(src="" type="audio/mpeg")
 
 	h2 Library
