@@ -15,19 +15,27 @@ var import_xml = function(xml) {
 };
 
 var get_all_tracks = function() {
+    throw new Error('not implemented');
     
+    return db.view('library', 'tracks');
 };
 
 var get_track = function(id) {
-        
+    throw new Error('not implemented');
+    
+    return db.view('library', 'tracks', {key: id});
 };
 
 var get_all_playlists = function() {
+    throw new Error('not implemented');
     
+    return db.view('library', 'playlists');
 };
 
 var get_playlist = function(id) {
+    throw new Error('not implemented');
     
+    return db.view('library', 'playlists', {key: id});
 };
 
 module.exports = {
