@@ -1,5 +1,6 @@
 var fs = require("fs");
 var xmldoc = require("xmldoc");
+var _ = require('underscore');
 
 // main class that holds all the playlists and stuff
 ITLibrary = function(trackList) {
@@ -39,26 +40,17 @@ exports.getLibrary = function()
 
 // returns an Object containing all elements from dictionary
 function parseTrackInfo(dict) {
-	song = {};
+	var song = {};
 
 	// get some information about the song
-	song.id = parseInt(dict.children[1].val);
-	song.name = dict.children[3].val;
-	song.artist = dict.children[5].val;
-	song.albumArtist = dict.children[7].val;
-	song.album = dict.children[9].val;
-	song.genre = dict.children[11].val;
-	song.kind = dict.children[13].val;
-	song.size = parseInt(dict.children[15].val);
-
-	// hunt for the location
-	for (var n = 16; n < dict.children.length; n += 2) {
-		val = dict.children[n].val;
-
-		if (val == "Location") {
-			song.location = String(dict.children[n + 1].val);
-		}
-	}
+	song.id = findTrackKey('Track ID', dict);
+	song.name = findTrackKey('Name', dict);
+	song.artist = findTrackKey('Artist', dict);
+	song.album = findTrackKey('Album', dict);
+	song.kind = findTrackKey('Kind', dict);
+	song.genre = findTrackKey('Genre', dict);
+	song.size = findTrackKey('Size', dict);
+	song.location = findTrackKey('Location', dict);
 
 	// prune the location to relative directory
 	if (song.location === undefined) {
@@ -73,4 +65,18 @@ function parseTrackInfo(dict) {
 	}
 
 	return song;
+}
+
+function findTrackKey(name, dict) {
+	var is_next_val = false;
+	var value;
+	_.forEach(dict.children, function(child) {
+		if (is_next_val) {
+			value = child.val;
+		}
+		
+		is_next_val = (child.name === 'key' && child.val === name);
+	});
+	
+	return value;
 }
