@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 // require the itunes library
-var itlib = require("./model/itlib");
+var itx_import = require("./util/itunes-xml-import");
 
 /* GET home page. */
 router.get('/info', function(req, res) {
@@ -26,12 +26,12 @@ router.get("/Music*", function(req, res) {
 });
 
 router.get("/api*", function(req, res) {
-	res.send(itlib.loadTracks());
+	res.send(itx_import.loadTracks('./data/itml.xml'));
 });
 
 router.get('/', function(req, res) {
 
-	var tl = itlib.loadTracks();
+	var tl = itx_import.loadTracks('./data/itml.xml');
 
 	res.render('itunes', {
 		trackList: tl

@@ -7,41 +7,39 @@ ITLibrary = function(trackList) {
 };
 
 // builds the model
-exports.loadTracks = function()
+exports.loadTracks = function(filename)
 {
-	fname = "data/itml.xml";
-
 	// read the contents of the file and generate tree
-	data = fs.readFileSync(fname);
+	var data = fs.readFileSync(filename);
 	var xmlDoc = new xmldoc.XmlDocument(data);
 
 	// get the track list
-	rootDict = xmlDoc.childNamed("dict");
-	tracks = rootDict.childNamed("dict");
+	var rootDict = xmlDoc.childNamed("dict");
+	var tracks = rootDict.childNamed("dict");
 
 	// iterate pairs at a time
-	trackList = [];
+	var trackList = [];
 	for(var n = 0; n < tracks.children.length; n += 2) {
 		// get the song key and corresponding dictionary
-		key = tracks.children[n].val;
-		dict = tracks.children[n + 1];
+		var key = tracks.children[n].val;
+		var dict = tracks.children[n + 1];
 
-		song = parseTrackInfo(dict);
+		var song = parseTrackInfo(dict);
 		trackList = trackList.concat([song]);
 	}
 
 	return trackList;
-}
+};
 
 // returns a reference to the library
 exports.getLibrary = function()
 {
 	return library;
-}
+};
 
 // returns an Object containing all elements from dictionary
 function parseTrackInfo(dict) {
-	song = new Object();
+	song = {};
 
 	// get some information about the song
 	song.id = parseInt(dict.children[1].val);
@@ -58,12 +56,12 @@ function parseTrackInfo(dict) {
 		val = dict.children[n].val;
 
 		if (val == "Location") {
-			song.location = new String(dict.children[n + 1].val);
+			song.location = String(dict.children[n + 1].val);
 		}
 	}
 
 	// prune the location to relative directory
-	if (song.location == undefined) {
+	if (song.location === undefined) {
 		console.log("Could not find location for " + song.name);
 	}
 	else {
