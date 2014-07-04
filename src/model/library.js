@@ -16,31 +16,19 @@ var import_xml = function(filename) {
 };
 
 var get_all_tracks = function() {
-    return db.view('library', 'tracks')
-        .catch(function(err) {
-            console.log(err);
-        });
+    return db.view('library', 'tracks');
 };
 
 var get_track = function(id) {
-    return db.view('library', 'tracks', {key: id})
-        .catch(function(err) {
-            console.log(err);
-        });
+    return db.view('library', 'tracks', {key: id});
 };
 
 var get_all_playlists = function() {
-    return db.view('library', 'playlists')
-        .catch(function(err) {
-            console.log(err);
-        });
+    return db.view('library', 'playlists');
 };
 
 var get_playlist = function(id) {
-    return db.view('library', 'playlists', {key: id})
-        .catch(function(err) {
-            console.log(err);
-        });
+    return db.view('library', 'playlists', {key: id});
 };
 
 module.exports = {
