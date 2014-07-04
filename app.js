@@ -4,7 +4,11 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var itlib = require('./src/model/library.js');
+
+var itlib = require('./src/model/library');
+
+// require designs file to load them in the database
+var designs = require('./src/designs');
 
 var routes = require('./src/routes');
 
