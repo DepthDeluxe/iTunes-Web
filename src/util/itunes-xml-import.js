@@ -8,8 +8,7 @@ ITLibrary = function(trackList) {
 };
 
 // builds the model
-exports.loadTracks = function(filename)
-{
+function from_file(filename) {
 	// read the contents of the file and generate tree
 	var data = fs.readFileSync(filename);
 	var xmlDoc = new xmldoc.XmlDocument(data);
@@ -25,21 +24,29 @@ exports.loadTracks = function(filename)
 		var key = tracks.children[n].val;
 		var dict = tracks.children[n + 1];
 
-		var song = parseTrackInfo(dict);
+		var song = _parseTrackInfo(dict);
 		trackList = trackList.concat([song]);
 	}
 
 	return trackList;
-};
-
-// returns a reference to the library
-exports.getLibrary = function()
-{
-	return library;
-};
+}
 
 // returns an Object containing all elements from dictionary
-function parseTrackInfo(dict) {
+function _parseTrackInfo(dict) {
+	function findTrackKey(name) {
+		var is_next_val = false;
+		var value;
+		_.forEach(dict.children, function(child) {
+			if (is_next_val) {
+				value = child.val;
+			}
+
+			is_next_val = (child.name === 'key' && child.val === name);
+		});
+
+		return value;
+	}
+
 	var song = {};
 
 	// get some information about the song
@@ -67,16 +74,6 @@ function parseTrackInfo(dict) {
 	return song;
 }
 
-function findTrackKey(name, dict) {
-	var is_next_val = false;
-	var value;
-	_.forEach(dict.children, function(child) {
-		if (is_next_val) {
-			value = child.val;
-		}
-		
-		is_next_val = (child.name === 'key' && child.val === name);
-	});
-	
-	return value;
-}
+module.exports = {
+	from_file: from_file
+};

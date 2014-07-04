@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var itlib = require('./src/model/library.js');
 
 var routes = require('./src/routes');
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// use routing file in src/
 app.use('/', routes);
 
 /// catch 404 and forwarding to error handler
@@ -30,7 +32,6 @@ app.use(function(req, res, next) {
 });
 
 /// error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -52,6 +53,9 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+// load the XML file into CouchDB
+itlib.import('./data/itml.xml');
 
 app.set('port', process.env.PORT || 3000);
 

@@ -7,19 +7,19 @@ var itx_import = require("./util/itunes-xml-import");
 
 router.get("/Music*", function(req, res) {
 	// open the file we requested
-	musicRoot = "/home/colin/temp/iTunes/iTunes Media";
+	musicRoot = "/Users/colin/Music/iTunes/iTunes Media";
 	path = musicRoot + req.path;
 
 	res.sendfile(path);
 });
 
 router.get("/api*", function(req, res) {
-	res.send(itx_import.loadTracks('./data/itml.xml'));
+	res.send(itx_import.import('./data/itml.xml'));
 });
 
 router.get('/', function(req, res) {
 
-	var tl = itx_import.loadTracks('./data/itml.xml');
+	var tl = itx_import.import('./data/itml.xml');
 
 	res.render('itunes', {
 		trackList: tl
