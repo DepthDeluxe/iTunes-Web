@@ -7,16 +7,27 @@ var db = Promise.promisifyAll(nano.use('itunes-web'));
 
 var import_xml = function(filename) {
     // import the list fmr the xml
-    var track_list = itx_import.from_file(filename);
+    var library = itx_import.from_file(filename);
+
+    db.insert(library.version, 'version');
+    db.insert(library.date, 'date');
 
     // insert each track into database
-    _.forEach(track_list, function(track) {
+    _.forEach(library.tracks, function(track) {
         db.insert(track, 'track' + track.id);
+    });
+
+    // insert each playlist into the database
+    _.forEach(library.playlists, function(playlist) {
+        db.insert(playlist, 'playlist' + playlist.id);
     });
 };
 
 var get_all_tracks = function() {
-    return db.viewAsync('tracks', 'allIds');
+    return db.viewAsync('tracks', 'allIds')
+        .then(function(data) {
+            return data[0];
+        });
 };
 
 var get_track = function(id) {
