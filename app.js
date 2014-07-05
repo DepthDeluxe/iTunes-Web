@@ -59,7 +59,7 @@ app.use(function(err, req, res, next) {
 });
 
 // load the XML file into CouchDB
-itlib.import('./data/itml.xml');
+// itlib.import('./data/itml.xml');
 
 app.set('port', process.env.PORT || 3000);
 

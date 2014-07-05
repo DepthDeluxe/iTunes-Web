@@ -16,19 +16,22 @@ var import_xml = function(filename) {
 };
 
 var get_all_tracks = function() {
-    return db.view('library', 'tracks');
+    return db.viewAsync('tracks', 'allIds');
 };
 
 var get_track = function(id) {
-    return db.view('library', 'tracks', {key: id});
+    return db.viewAsync('tracks', 'byId', {key: id})
+        .then(function(data) {
+            return data[0];
+        });
 };
 
 var get_all_playlists = function() {
-    return db.view('library', 'playlists');
+    return db.viewAsync('playlists', 'playlists');
 };
 
 var get_playlist = function(id) {
-    return db.view('library', 'playlists', {key: id});
+    return db.viewAsync('playlists', 'playlists', {key: id});
 };
 
 module.exports = {
