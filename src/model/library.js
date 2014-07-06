@@ -5,6 +5,12 @@ var nano = require('nano')('http://localhost:5984');
 
 var db = Promise.promisifyAll(nano.use('itunes-web'));
 
+// keeps track of what type the objects are
+var types = {
+    track: 1,
+    playlist: 2
+};
+
 var import_xml = function(filename) {
     // import the list fmr the xml
     var library = itx_import.from_file(filename);
@@ -14,11 +20,13 @@ var import_xml = function(filename) {
 
     // insert each track into database
     _.forEach(library.tracks, function(track) {
+        track.type = types.track;
         db.insert(track, 'track' + track.id);
     });
 
     // insert each playlist into the database
     _.forEach(library.playlists, function(playlist) {
+        playlist.type = types.playlist;
         db.insert(playlist, 'playlist' + playlist.id);
     });
 };
@@ -50,5 +58,6 @@ module.exports = {
     all_tracks: get_all_tracks,
     track: get_track,
     all_playlists: get_all_playlists,
-    playlist: get_playlist
+    playlist: get_playlist,
+    types: types
 };
