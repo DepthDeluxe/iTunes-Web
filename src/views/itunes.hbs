@@ -1,0 +1,33 @@
+extends header
+
+block content
+	h1 iTunes Web
+	p Colin's iTunes Library
+
+	h2 Current Song
+	div
+		br
+		video(controls autoplay name="media" width="100%" height="0" onended="nextSong();")
+			source(src="" type="audio/mpeg")
+
+	h2 Library
+	table(class="main")
+		tr
+			th
+			th Title:
+			th Artist:
+			th Album:
+			th Genre:
+
+		for track in trackList
+			tr(data-id="#{track.id}" data-url="/#{track.location}")
+				td
+					img(src="/images/play.svg" alt="play" width="30" height="30" onclick="playSong(this)")
+				td= track.name
+				td= track.artist
+				td= track.album
+				td= track.genre
+
+	br
+	br
+	p &#169; Copyright Colin Heinzmann

@@ -16,7 +16,7 @@ var app = express();
 
 // view engine setup
 app.set('views', './src/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 
 app.use(favicon());
 app.use(logger('dev'));
